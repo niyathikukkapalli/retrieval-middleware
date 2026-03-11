@@ -1,8 +1,23 @@
 Retrieval Middleware Proof-of-Concept
 ====================================
 
-Running the app
----------------
+## What this does
+
+A **lightweight middleware layer** that sits between a user query and a vector database. It adds:
+
+- **Semantic cache** — Reuses results for similar queries (cosine similarity above a threshold) so repeated or paraphrased questions skip the vector DB and reranker.
+
+- **Re-ranking** — Takes the top-k candidates from the vector DB and re-scores them with a cross-encoder for better relevance.
+
+- **Latency visibility** — Every response includes a breakdown of time spent in embedding, cache lookup, vector DB call, and reranking.
+
+**Tech:** FastAPI, sentence-transformers (embeddings + cross-encoder), in-memory cache, mock vector DB with simulated latency. No real database required to run.
+
+**Flow:** Query → embed → check cache → on miss: vector DB (top 50) → rerank to top_n → cache result → return JSON with results and timing.
+
+---
+
+## Running the app
 
 1. Install dependencies:
 

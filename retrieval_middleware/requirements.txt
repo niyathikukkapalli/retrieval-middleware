@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-sentence-transformers
-numpy
-pytest
-httpx
-pytest-asyncio
-matplotlib
